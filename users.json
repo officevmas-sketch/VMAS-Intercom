@@ -1,7 +1,0 @@
-{
-  "admin": { "pin": "9999", "name": "Admin", "department": "Admin", "role": "admin" },
-  "vivek": { "pin": "1234", "name": "Vivek", "department": "Management", "role": "employee" },
-  "reception": { "pin": "1111", "name": "Reception", "department": "Front Office", "role": "employee" },
-  "accounts": { "pin": "2222", "name": "Accounts", "department": "Finance", "role": "employee" },
-  "tax": { "pin": "3333", "name": "Tax Desk", "department": "Tax", "role": "employee" }
-}

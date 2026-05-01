@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>VMAS Mobile Intercom</title>
+  <meta name="theme-color" content="#111827" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="VMAS Intercom" />
+  <link rel="manifest" href="manifest.json" />
+  <link rel="apple-touch-icon" href="assets/icon-192.png" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main class="app-shell">
+    <section id="loginView" class="card login-card">
+      <div class="brand-badge">VMAS</div>
+      <h1>Mobile Intercom</h1>
+      <p class="muted">Install on Android or iPhone and call office colleagues instantly.</p>
+      <label>Username</label>
+      <input id="username" autocomplete="username" placeholder="e.g. vivek" />
+      <label>PIN</label>
+      <input id="pin" type="password" inputmode="numeric" autocomplete="current-password" placeholder="4 digit PIN" />
+      <button id="loginBtn" class="primary">Login</button>
+      <p class="hint">Enter your username and PIN provided by admin.</p>
+    </section>
+
+    <section id="mainView" class="hidden">
+      <header class="topbar">
+        <div>
+          <div class="small">Logged in as</div>
+          <h2 id="currentUserName">User</h2>
+        </div>
+        <button id="logoutBtn" class="ghost">Logout</button>
+      </header>
+
+      <div id="installCard" class="notice hidden">
+        <b>Install App</b>
+        <span id="installText">Use browser menu → Add to Home Screen.</span>
+        <button id="installBtn" class="secondary hidden">Install</button>
+      </div>
+
+      <div class="card incoming hidden" id="incomingBox">
+        <div class="ring">📞</div>
+        <h2 id="incomingTitle">Incoming Call</h2>
+        <p id="incomingMessage"></p>
+        <button id="ackBtn" class="primary">Acknowledge</button>
+      </div>
+
+      <section class="card">
+        <div class="row-between">
+          <h3>Call Employee</h3>
+          <button id="enableNotifyBtn" class="secondary">Enable Notifications</button>
+        </div>
+        <input id="searchBox" placeholder="Search employee or department" />
+        <div id="departmentFilters" class="chips"></div>
+        <div id="employeeList" class="employee-list"></div>
+      </section>
+
+      <section id="adminPanel" class="card hidden">
+        <h3>Admin: Add / Update Employee</h3>
+        <div class="grid2">
+          <input id="newUsername" placeholder="username" />
+          <input id="newPin" placeholder="PIN" inputmode="numeric" />
+          <input id="newName" placeholder="Full name" />
+          <input id="newDept" placeholder="Department" />
+        </div>
+        <button id="saveEmployeeBtn" class="primary">Save Employee</button>
+        <p class="hint">This updates Firebase employees list for live app. Keep PINs private.</p>
+      </section>
+
+      <section class="card">
+        <h3>Recent Call Logs</h3>
+        <div id="logs" class="logs"></div>
+      </section>
+    </section>
+  </main>
+
+  <audio id="ringtone" src="assets/alert.mp3" preload="auto"></audio>
+
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-messaging.js"></script>
+  <script src="firebase-config.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

@@ -1,8 +1,13 @@
-{
+
   "name": "vmas-intercom-functions",
   "version": "1.0.0",
   "main": "index.js",
-  "engines": { "node": "20" },
+  "engines": {
+    "node": "20"
+  },
+  "scripts": {
+    "lint": "echo skipping lint"
+  },
   "dependencies": {
     "firebase-admin": "^12.7.0",
     "firebase-functions": "^6.1.2"

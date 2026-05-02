@@ -119,33 +119,46 @@ function showIncoming(call){
 
 /* ---------------- PUSH ENABLE ---------------- */
 
-async function enableNotifications(){
+async function enableNotifications() {
+  if (!('Notification' in window)) {
+    alert('Notifications are not supported on this browser.');
+    return;
+  }
 
-  if (!messaging) {
-    alert("Push not configured. Add VAPID key.");
+  const vapidKey = window.firebaseVapidKey || window.VAPID_KEY;
+
+  if (!vapidKey) {
+    alert('VAPID key missing in firebase-config.js');
     return;
   }
 
   const permission = await Notification.requestPermission();
 
   if (permission !== 'granted') {
-    alert("Notification permission denied");
+    alert('Notification permission denied.');
     return;
   }
 
   try {
-    const token = await messaging.getToken({
-      vapidKey: window.firebaseVapidKey
+    const reg = await navigator.serviceWorker.register('./firebase-messaging-sw.js');
+
+    const token = await firebase.messaging().getToken({
+      vapidKey: vapidKey,
+      serviceWorkerRegistration: reg
     });
 
-    if (token) {
-      await db.ref(`employees/${currentUser}/fcmToken`).set(token);
-
-      alert("Push enabled successfully ✅");
+    if (!token) {
+      alert('Token not generated. Please check browser notification settings.');
+      return;
     }
 
-  } catch(e){
-    console.error(e);
-    alert("Push failed. Check VAPID key.");
+    await db.ref(`employees/${currentUser}/fcmToken`).set(token);
+    await db.ref(`employees/${currentUser}/notificationEnabled`).set(true);
+
+    alert('Push notifications enabled successfully ✅');
+
+  } catch (error) {
+    console.error('Push error:', error);
+    alert('Push failed: ' + error.message);
   }
 }

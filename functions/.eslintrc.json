@@ -1,0 +1,16 @@
+{
+  "env": {
+    "node": true,
+    "es2021": true
+  },
+  "extends": [],
+  "parserOptions": {
+    "ecmaVersion": 2021
+  },
+  "rules": {
+    "no-unused-vars": "off",
+    "object-curly-spacing": "off",
+    "quotes": "off",
+    "semi": "off"
+  }
+}
